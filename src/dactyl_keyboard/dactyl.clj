@@ -88,7 +88,11 @@
                                  (translate [(+ (/ 1.5 2) (/ keyswitch-width 2))
                                              0
                                              (/ plate-thickness 2)]))))
-        plate-half (union top-wall left-wall (with-fn 100 side-nub))]
+        plate-half (union
+                    top-wall
+                    left-wall
+                    ; (with-fn 100 side-nub)
+                   )]
     (union plate-half
            (->> plate-half
                 (mirror [1 0 0])
