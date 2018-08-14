@@ -700,13 +700,13 @@
                     thumb-connectors
                     (difference (union case-walls 
                                        screw-insert-outers 
-                                       teensy-holder
+                    ;                    teensy-holder
                                        usb-holder)
                                 rj9-space 
                                 usb-holder-hole
                                 screw-insert-holes)
-                    rj9-holder
-                    wire-posts
+                    ; rj9-holder
+                    ; wire-posts
                     ; thumbcaps
                     ; caps
                     )
@@ -729,8 +729,8 @@
                     case-walls 
                     thumbcaps
                     caps
-                    teensy-holder
-                    rj9-holder
+                    ; teensy-holder
+                    ; rj9-holder
                     usb-holder-hole
                     ; usb-holder-hole
                     ; ; teensy-holder-hole
@@ -747,7 +747,7 @@
                    (cut
                      (translate [0 0 -0.1]
                        (difference (union case-walls
-                                          teensy-holder
+                                          ; teensy-holder
                                           ; rj9-holder
                                           screw-insert-outers)
                                    (translate [0 0 -10] screw-insert-screw-holes))
