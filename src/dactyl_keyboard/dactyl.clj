@@ -19,9 +19,9 @@
 (def α (/ π 12))                        ; curvature of the columns
 (def β (/ π 36))                        ; curvature of the rows
 (def centerrow (- nrows 3))             ; controls front-back tilt
-(def centercol 3)                       ; controls left-right tilt / tenting (higher number is more tenting)
+(def centercol 2)                       ; controls left-right tilt / tenting (higher number is more tenting)
 (def tenting-angle (/ π 12))            ; or, change this for more precise tenting control
-(def column-style 
+(def column-style
   (if (> nrows 5) :orthographic :standard))  ; options include :standard, :orthographic, and :fixed
 ; (def column-style :fixed)
 
@@ -32,12 +32,12 @@
 
 (def thumb-offsets [6 -3 7])
 
-(def keyboard-z-offset 9)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
+(def keyboard-z-offset 19)               ; controls overall height; original=9 with centercol=3; use 16 for centercol=2
 
 (def extra-width 2.5)                   ; extra space between the base of keys; original= 2
 (def extra-height 1.0)                  ; original= 0.5
 
-(def wall-z-offset -15)                 ; length of the first downward-sloping part of the wall (negative)
+(def wall-z-offset -5)                  ; length of the first downward-sloping part of the wall (negative)
 (def wall-xy-offset 5)                  ; offset in the x and/or y direction for the first downward-sloping part of the wall (negative)
 (def wall-thickness 2)                  ; wall thickness parameter; originally 5
 
@@ -118,7 +118,7 @@
                  (->> key-cap
                       (translate [0 0 (+ 5 plate-thickness)])
                       (color [220/255 163/255 163/255 1])))
-             2 (let [bl2 (/ sa-double-length 2)
+             2 (let [bl2 sa-length
                      bw2 (/ 18.25 2)
                      key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                         (extrude-linear {:height 0.1 :twist 0 :convexity 0})
@@ -473,7 +473,7 @@
 (defn bottom-hull [& p]
   (hull p (bottom 0.001 p)))
 
-(def left-wall-x-offset 10)
+(def left-wall-x-offset 5)
 (def left-wall-z-offset  3)
 
 (defn left-key-position [row direction]
@@ -586,6 +586,7 @@
      (thumb-tl-place thumb-post-tl))
   ))
 
+(def usb-holder-ref (key-position 0 0 (map - (wall-locate2  0  -1) [0 (/ mount-height 2) 0])))
 
 (def rj9-start  (map + [0 -3  0] (key-position 0 0 (map + (wall-locate3 0 1) [0 (/ mount-height  2) 0]))))
 (def rj9-position  [(first rj9-start) (second rj9-start) 11])
@@ -706,7 +707,7 @@
                                        screw-insert-outers 
                     ;                    teensy-holder
                                        usb-holder)
-                                rj9-space 
+                    ;            rj9-space 
                                 usb-holder-hole
                                 screw-insert-holes)
                     ; rj9-holder
