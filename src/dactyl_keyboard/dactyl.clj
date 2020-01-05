@@ -668,9 +668,10 @@
          (screw-insert 1       lastrow  bottom-radius top-radius height [-0.7 -15.5 0])))
 
 
-(def screw-insert-height 3.8)
-(def screw-insert-bottom-radius (/ 5.31 2))
-(def screw-insert-top-radius (/ 5.1 2))
+; For Ruthex M3, min 5.7+1mm height, 4mm wide, 1.6mm walls
+(def screw-insert-height (+ 1 5.7))
+(def screw-insert-bottom-radius (/ 4.31 2))
+(def screw-insert-top-radius (/ 4.1 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 (def screw-insert-outers (screw-insert-all-shapes (+ screw-insert-bottom-radius 1.6) (+ screw-insert-top-radius 1.6) (+ screw-insert-height 1.5)))
 (def screw-insert-screw-holes  (screw-insert-all-shapes 1.7 1.7 350))
