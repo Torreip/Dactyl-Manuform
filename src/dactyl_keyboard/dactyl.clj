@@ -609,6 +609,14 @@
                                     )
 )
 
+(def rgb-led-hole-position (map + (key-position 0 2 (wall-locate3 -1 0)) [-9 2 -15]))
+
+(def rgb-led-hole (translate rgb-led-hole-position (union
+    (translate [-1.5 0 0] (cube 2 5.2 5.2))
+    (rotate (deg2rad  90) [0 1 0] (cylinder (/ 11 2) 2))
+                  ))
+)
+
 (def pro-micro-position (map + (key-position 0 1 (wall-locate3 -1 0)) [-6 2 -15]))
 (def pro-micro-space-size [4 10 12]) ; z has no wall;
 (def pro-micro-wall-thickness 2)
@@ -626,7 +634,7 @@
    (->> (cube (first pro-micro-holder-size) (second pro-micro-holder-size) (last pro-micro-holder-size))
         (translate [(first pro-micro-position) (second pro-micro-position) (last pro-micro-position)]))
    pro-micro-space))
-
+   
 (def trrs-holder-size [6.2 10 2]) ; trrs jack PJ-320A
 (def trrs-holder-hole-size [6.2 10 6]) ; trrs jack PJ-320A
 (def trrs-holder-position  (map + usb-holder-position [-13.6 0 0]))
@@ -721,6 +729,7 @@
                                ;usb-jack
                                ;trrs-holder-hole
                                pro-micro-and-trss-holder-hole
+                               rgb-led-hole
                                screw-insert-holes)
                     )
                    (translate [0 0 -20] (cube 350 350 40)) 
