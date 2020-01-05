@@ -388,7 +388,9 @@
   (union
    (thumb-1x-layout single-plate)
    (thumb-15x-layout single-plate)
-   (thumb-15x-layout larger-plate)
+;   (thumb-15x-layout larger-plate)
+   (thumb-tr-place larger-plate)
+   (thumb-tl-place larger-plate-half)
    ))
 
 (def thumb-post-tr (translate [(- (/ mount-width 2) post-adj)  (- (/ mount-height  1.15) post-adj) 0] web-post))
@@ -425,9 +427,9 @@
       (triangle-hulls    ; top two to the middle two, starting on the left
              (thumb-tl-place thumb-post-tl)
              (thumb-ml-place web-post-tr)
-             (thumb-tl-place thumb-post-bl)
+             (thumb-tl-place web-post-bl)
              (thumb-ml-place web-post-br)
-             (thumb-tl-place thumb-post-br)
+             (thumb-tl-place web-post-br)
              (thumb-mr-place web-post-tr)
              (thumb-tr-place thumb-post-bl)
              (thumb-mr-place web-post-br)
