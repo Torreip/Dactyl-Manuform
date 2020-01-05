@@ -603,6 +603,12 @@
 
 (def usb-jack (translate (map + usb-holder-position [0 10 3]) (cube 8.1 20 3.1)))
 
+(def pro-micro-and-trss-holder-hole (union
+    (translate (map + usb-holder-position [-1 4 4]) (cube 28.66 (* 2 wall-thickness) 12))
+    (translate (map + usb-holder-position [-1 3 4]) (cube 32 (+ 0.5 wall-thickness) 12))
+                                    )
+)
+
 (def pro-micro-position (map + (key-position 0 1 (wall-locate3 -1 0)) [-6 2 -15]))
 (def pro-micro-space-size [4 10 12]) ; z has no wall;
 (def pro-micro-wall-thickness 2)
@@ -707,17 +713,19 @@
                     thumb-connectors
                     (difference (union case-walls 
                                        screw-insert-outers 
-                                      pro-micro-holder
-                                      usb-holder-holder
-                                      trrs-holder)
-                               usb-holder-space
-                               usb-jack
-                               trrs-holder-hole
+                                      ;pro-micro-holder
+                                      ;usb-holder-holder
+                                      ;trrs-holder
+                                      )
+                               ;usb-holder-space
+                               ;usb-jack
+                               ;trrs-holder-hole
+                               pro-micro-and-trss-holder-hole
                                screw-insert-holes)
                     )
                    (translate [0 0 -20] (cube 350 350 40)) 
                   ))
-
+pro-micro-and-trss-holder-hole
 (spit "things/right.scad"
       (write-scad model-right))
  
