@@ -605,11 +605,7 @@
 
 (def usb-jack (translate (map + usb-holder-position [0 10 3]) (cube 8.1 20 3.1)))
 
-(def pro-micro-and-trss-holder-hole (union
-    (translate (map + usb-holder-position [-1 4 4]) (cube 28.66 (* 2 wall-thickness) 12))
-    (translate (map + usb-holder-position [-1 3 4]) (cube 32 (+ 0.5 wall-thickness) 12))
-                                    )
-)
+(def pro-micro-and-trss-holder-hole (translate (map + usb-holder-position [-1 4 4]) (cube 28.66 (* 2 wall-thickness) 12)))
 
 (def rgb-led-hole-position (map + (key-position 0 2 (wall-locate3 -1 0)) [-9 2 -15]))
 
@@ -686,7 +682,7 @@
 
 ; For Ruthex M3, min 5.7+1mm height, 4mm wide, 1.6mm walls
 (def screw-insert-height (+ 1 5.7))
-(def screw-insert-bottom-radius (/ 4.31 2))
+(def screw-insert-bottom-radius (/ 4.5 2))
 (def screw-insert-top-radius (/ 4.1 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 (def screw-insert-outers (screw-insert-all-shapes (+ screw-insert-bottom-radius 1.6) (+ screw-insert-top-radius 1.6) (+ screw-insert-height 1.5)))
