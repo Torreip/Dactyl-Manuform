@@ -83,6 +83,10 @@
 ;; Switch Hole ;;
 ;;;;;;;;;;;;;;;;;
 
+(def sa-length 18.25)
+(def sa-double-length 37.5)
+(def web-thickness 3.5)
+
 (def keyswitch-height 14.15) ;; Was 14.1, then 14.25
 (def keyswitch-width 14.15)
 
@@ -140,8 +144,9 @@
 ;; SA Keycaps ;;
 ;;;;;;;;;;;;;;;;
 
-(def sa-length 18.25)
-(def sa-double-length 37.5)
+;(def sa-length 18.25) ; Moved to Switch Hole
+;(def sa-double-length 37.5) ; Moved to Switch Hole
+
 (def sa-cap {1 (let [bl2 (/ 18.5 2)
                      m (/ 17 2)
                      key-cap (hull (->> (polygon [[bl2 bl2] [bl2 (- bl2)] [(- bl2) (- bl2)] [(- bl2) bl2]])
@@ -290,8 +295,7 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; Web Connectors ;;
 ;;;;;;;;;;;;;;;;;;;;
-
-(def web-thickness 3.5)
+;(def web-thickness 3.5) ; Moved to Switch Hole
 (def post-size 0.1)
 (def web-post (->> (cube post-size post-size web-thickness)
                    (translate [0 0 (+ (/ web-thickness -2)
