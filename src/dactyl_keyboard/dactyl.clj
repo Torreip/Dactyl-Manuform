@@ -26,7 +26,7 @@
 (def first-15u-row 0)                   ; controls which should be the first row to have 1.5u keys on the outer column
 (def last-15u-row 3)                    ; controls which should be the last row to have 1.5u keys on the outer column
 
-(def extra-row true)                   ; adds an extra bottom row to the outer columns
+(def extra-row false)                   ; adds an extra bottom row to the outer columns
 
 (def inner-column true)                ; adds an extra inner column (one less row than
 
@@ -34,7 +34,7 @@
 
 (if (true? inner-column)
   (defn column-offset [column] (cond
-  (<= column 1) [0 -2 0]
+  (<= column 0) [0 -2 0]
   (= column 3) [0 2.82 -4.5]
   (>= column 5) [0 -12 5.64]            ; original [0 -5.8 5.64]
   :else [0 0 0]))
@@ -606,7 +606,7 @@
 (defn bottom-hull [& p]
   (hull p (bottom 0.001 p)))
 
-(def left-wall-x-offset 8)
+(def left-wall-x-offset 5)
 (def left-wall-z-offset  3)
 
 (defn left-key-position [row direction]
@@ -790,15 +790,33 @@
 
 ; Cutout for controller/trrs jack holder
 (def usb-holder-ref (key-position 0 0 (map - (wall-locate2  0  -1) [0 (/ mount-height 2) 0])))
-(def usb-holder-position (map + [(+ 18.8 holder-offset) 18.7 1.3] [(first usb-holder-ref) (second usb-holder-ref) 2]))
+(def usb-holder-position (map + [(+ 37 holder-offset) 18.7 1.3] [(first usb-holder-ref) (second usb-holder-ref) 2]))
 (def usb-holder-cube   (cube 28.666 30 12.6))
 (def usb-holder-space  (translate (map + usb-holder-position [-1.5 (* -1 wall-thickness) 3]) usb-holder-cube))
+
+(def rgb-led-hole-position (map + (key-position 0 2 (wall-locate3 -1 0)) [-5.7 2 -15]))
+
+(def rgb-led-hole (translate rgb-led-hole-position (union
+    (translate [-1.5 0 0] (cube 4 5.2 5.2))
+    (translate [2 0 0] (rotate (deg2rad  90) [0 1 0] (cylinder (/ 11 2) 6)))
+                  ))
+)
+
+(def rgb-led-support (
+        translate rgb-led-hole-position (
+            translate [-1 0 0] (
+                rotate (deg2rad  90) [0 1 0] (cylinder (/ (+ 11 4) 2) 2)
+            )
+        )
+     )
+)
+
 
 ; Screw insert definition & position
 (defn screw-insert-shape [bottom-radius top-radius height]
   (union
    (->> (binding [*fn* 30]
-                 (cylinder [bottom-radius top-radius] height)))
+          (cylinder [bottom-radius top-radius] height)))
    (translate [0 0 (/ height 2)] (->> (binding [*fn* 30] (sphere top-radius))))))
 
 (defn screw-insert [column row bottom-radius top-radius height offset]
@@ -814,18 +832,17 @@
          (translate (map + offset [(first position) (second position) (/ height 2)])))))
 
 (defn screw-insert-all-shapes [bottom-radius top-radius height]
-  (union (screw-insert 0 0         bottom-radius top-radius height [7 6.5 0])
-         (screw-insert 0 lastrow   bottom-radius top-radius height [9 -6.5 0])
-         (screw-insert lastcol lastrow  bottom-radius top-radius height [7 14 0])
-         (screw-insert lastcol 0         bottom-radius top-radius height [1 7 0])
+  (union (screw-insert 0 0         bottom-radius top-radius height [10 9.5 0])
+         (screw-insert 0 lastrow   bottom-radius top-radius height [5.5 -6.5 0])
+         (screw-insert lastcol lastrow  bottom-radius top-radius height [5.5 14.5 0])
+         (screw-insert lastcol 0         bottom-radius top-radius height [2.5 6.5 0])
          (screw-insert 2 lastrow         bottom-radius top-radius height [15 3.2 0])))
 
-; Hole Depth Y: 4.4
-(def screw-insert-height 4)
 
-; Hole Diameter C: 4.1-4.4
-(def screw-insert-bottom-radius (/ 4.0 2))
-(def screw-insert-top-radius (/ 3.9 2))
+; For Ruthex M3, min 5.7+1mm height, 4mm wide, 1.6mm walls
+(def screw-insert-height (+ 1 5.7))
+(def screw-insert-bottom-radius (/ 4.5 2))
+(def screw-insert-top-radius (/ 4.1 2))
 (def screw-insert-holes  (screw-insert-all-shapes screw-insert-bottom-radius screw-insert-top-radius screw-insert-height))
 
 ; Wall Thickness W:\t1.65
@@ -884,11 +901,14 @@
                     inner-connectors
                     thumb
                     thumb-connectors
+                    ;rgb-led-hole
                     (difference (union case-walls
                                        screw-insert-outers
-									   )
+                                       rgb-led-support
+                                       )
                                usb-holder-space
-                                screw-insert-holes)
+                               rgb-led-hole
+                               screw-insert-holes)
 ;                     thumbcaps
 ;                     caps
                     )
@@ -913,8 +933,7 @@
                     case-walls 
                     thumbcaps
                     caps
-;                    usb-holder-hole
-                    )))
+                  )))
 
 (spit "things/right-plate.scad"
       (write-scad
@@ -923,8 +942,7 @@
                    (difference (union case-walls
                                       screw-insert-outers)
                                (translate [0 0 -10] screw-insert-screw-holes))))
-				   
-				   ))
+      ))
 
 ;(spit "things/test.scad"
 ;      (write-scad
