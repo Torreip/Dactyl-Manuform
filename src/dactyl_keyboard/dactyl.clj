@@ -87,8 +87,8 @@
 (def sa-double-length 37.5)
 (def web-thickness 3.5)
 
-(def keyswitch-height 14.15) ;; Was 14.1, then 14.25
-(def keyswitch-width 14.15)
+(def keyswitch-height 14.4) ;; Was 14.1, then 14.25
+(def keyswitch-width 14.4)
 
 (def sa-profile-key-height 12.7)
 
@@ -96,8 +96,8 @@
 (def side-nub-thickness 4)
 (def retention-tab-thickness 1.5)
 (def retention-tab-hole-thickness (- plate-thickness retention-tab-thickness))
-(def mount-width (+ keyswitch-width 3.2))
-(def mount-height (+ keyswitch-height 2.7))
+(def mount-width (+ keyswitch-width 3))
+(def mount-height (+ keyswitch-height 3))
 
 (def single-plate
   (let [top-wall (->> (cube (+ keyswitch-width 3) 1.5 plate-thickness)
@@ -173,7 +173,7 @@
                       (translate [0 0 (+ 5 plate-thickness)])
                       (color [127/255 159/255 127/255 1])))
              1.5 (let [bl2 (/ 18.25 2)
-                       bw2 (/ 27.94 2)
+                       bw2 (/ 28 2)
                        key-cap (hull (->> (polygon [[bw2 bl2] [bw2 (- bl2)] [(- bw2) (- bl2)] [(- bw2) bl2]])
                                           (extrude-linear {:height 0.1 :twist 0 :convexity 0})
                                           (translate [0 0 0.05]))
@@ -481,8 +481,8 @@
 
 (def larger-plate
   (let [plate-height (/ (- sa-double-length mount-height) 3)
-        top-plate (->> (cube mount-width plate-height web-thickness)
-                       (translate [0 (/ (+ plate-height mount-height) 2)
+        top-plate (->> (cube mount-width (- plate-height 0) web-thickness)
+                       (translate [0 (- (/ (+ plate-height mount-height) 2) 0.3)
                                    (- plate-thickness (/ web-thickness 2))]))
         ]
     (union top-plate (mirror [0 1 0] top-plate))))
@@ -501,11 +501,10 @@
    (thumb-tl-place larger-plate-half)
    ))
 
-
-(def thumb-post-tr (translate [(- (/ mount-width 2) post-adj)  (- (/ mount-height  1.1) post-adj) 0] web-post))
-(def thumb-post-tl (translate [(+ (/ mount-width -2) post-adj) (- (/ mount-height  1.1) post-adj) 0] web-post))
-(def thumb-post-bl (translate [(+ (/ mount-width -2) post-adj) (+ (/ mount-height -1.1) post-adj) 0] web-post))
-(def thumb-post-br (translate [(- (/ mount-width 2) post-adj)  (+ (/ mount-height -1.1) post-adj) 0] web-post))
+(def thumb-post-tr (translate [(- (/ mount-width 2) post-adj)  (- (/ mount-height  1.15) post-adj) 0] web-post))
+(def thumb-post-tl (translate [(+ (/ mount-width -2) post-adj) (- (/ mount-height  1.15) post-adj) 0] web-post))
+(def thumb-post-bl (translate [(+ (/ mount-width -2) post-adj) (+ (/ mount-height -1.15) post-adj) 0] web-post))
+(def thumb-post-br (translate [(- (/ mount-width 2) post-adj)  (+ (/ mount-height -1.15) post-adj) 0] web-post))
 
 (def thumb-connectors
   (union
