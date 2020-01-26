@@ -704,6 +704,8 @@
                                            (left-key-place y        1 web-post)
                                            (left-key-place (dec y) -1 web-post)
                                            )))
+
+; 2 following lines
    (wall-brace (partial key-place 0 0) 0 1 web-post-tl (partial left-key-place 0 1) 0 1 web-post)
    (wall-brace (partial left-key-place 0 1) 0 1 web-post (partial left-key-place 0 1) -1 0 web-post)
    ; front wall
@@ -731,12 +733,10 @@
    (bottom-hull
      (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate2 -1 0) web-post))
      (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate3 -1 0) web-post))
-     (thumb-ml-place (translate (wall-locate2 -0.3 1) web-post-tr))
      (thumb-ml-place (translate (wall-locate3 -0.3 1) web-post-tr)))
    (hull
      (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate2 -1 0) web-post))
      (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate3 -1 0) web-post))
-     (thumb-ml-place (translate (wall-locate2 -0.3 1) web-post-tr))
      (thumb-ml-place (translate (wall-locate3 -0.3 1) web-post-tr))
      (thumb-tl-place thumb-post-tl))
    (hull
@@ -749,7 +749,7 @@
      (left-key-place (- cornerrow innercol-offset) -1 web-post)
      (left-key-place (- cornerrow innercol-offset) -1 (translate (wall-locate1 -1 0) web-post))
      (key-place 0 (- cornerrow innercol-offset) web-post-bl)
-     (key-place 0 (- cornerrow innercol-offset) (translate (wall-locate1 -1 0) web-post-bl))
+;     (key-place 0 (- cornerrow innercol-offset) (translate (wall-locate1 -1 0) web-post-bl))
      (thumb-tl-place thumb-post-tl))
    ; connectors below the first column to the thumb & second column
    (if (true? inner-column)
