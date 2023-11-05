@@ -18,13 +18,22 @@ setup01:
   virtualenv dmenv
 
 setup02: act
-  python -m pip install numpy dataclasses-json scipy solidpython cadquery gitpython
+  ./dmenv/bin/python -m pip install numpy dataclasses-json scipy solidpython cadquery gitpython
 
-run: act
-  python src/dactyl_manuform.py
+clean:
+  rm -rf ./things/*
+
+run: clean act
+  cd src && ./../dmenv/bin/python generate_configuration.py
+  ./dmenv/bin/python src/dactyl_manuform.py
 
 stl:
   #!/usr/bin/env sh
   for file in `ls things/*.scad`; do
-    @openscad $file -o $file.stl
+    OpenSCAD-2023.10.27.ai16657-x86_64.AppImage -q $file -o $file.stl
   done
+
+autom NAME: run stl
+  cp src/generate_configuration.py things/
+  cp src/run_config.* things/
+  mv things aa_{{NAME}}

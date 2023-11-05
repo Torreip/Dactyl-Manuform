@@ -30,6 +30,7 @@ shape_config = {
     'overrides': "",
     'resin': False,
     "magnet_bottom": False,
+    "right_side_only": True,
 
     ###################################
     ## todo: In progress
@@ -42,7 +43,7 @@ shape_config = {
     ## Shape parameters ##
     ######################
 
-    'show_caps': True,
+    'show_caps': False,
     'show_pcbs': False, #only runs if caps are shown, easist place to initially inject geometry
 
     'nrows':  5, #5,  # key rows
@@ -70,8 +71,9 @@ shape_config = {
     ##############################
     # THUMB PARAMETERS
     ##############################
-    # 'DEFAULT' 6-key, 'MINI' 5-key, 'CARBONFET' 6-key, 'MINIDOX' 3-key, 'TRACKBALL_ORBYL', 'TRACKBALL_CJ'
-    'thumb_style': 'TRACKBALL_ORBYL',
+    # 'DEFAULT' 6-key, 'MINI' 5-key, 'CARBONFET' 6-key, 'MINIDOX' 3-key,
+    # 'TRACKBALL_WILD', 'TRACKBALL_BTU', 'TRACKBALL_THREE', 'TRACKBALL_ORBYL', 'TRACKBALL_CJ'
+    'thumb_style': 'TRACKBALL_BTU',
     'default_1U_cluster': True, # only used with default, makes top right thumb cluster key 1U
     # Thumb key size.  May need slight oversizing, check w/ caps.  Additional spacing will be automatically added for larger keys.
     'minidox_Usize': 1.6,
@@ -150,6 +152,9 @@ shape_config = {
     'tb_socket_rotation_offset':    (0, 0, 0),  # applied to the socket and sensor, large values will cause web/wall issues.
     'tb_sensor_translation_offset': (0, 0, 0),  #deviation from socket offsets, for fixing generated geometry issues
     'tb_sensor_rotation_offset':    (0, 0, 0),  #deviation from socket offsets, for changing the sensor roll orientation
+
+    'tb_btu_socket_translation_offset': (0, 0, -20.0),  # was missing
+    'tb_btu_socket_rotation_offset': (0, 0, 40),  # was missing
 
     ##############################
     # EXPERIMENTAL PARAMETERS
@@ -240,7 +245,7 @@ shape_config = {
 
     'oled_side': 'both',  # like the trackball, if a mount type is specified, you can set both sides (the default),
                           # or 'right' or 'left' only.
-    'oled_mount_type':  'CLIP',
+    'oled_mount_type':  None,
     'oled_center_row': 1.25, # if not None, this will override the oled_mount_location_xyz and oled_mount_rotation_xyz settings
     'oled_translation_offset': (0, 0, 4), # Z offset tweaks are expected depending on curvature and OLED mount choice.
     'oled_rotation_offset': (0, 0, 0),
